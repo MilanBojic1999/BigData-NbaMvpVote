@@ -2,29 +2,6 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
 
-'''
-url = "https://www.basketball-reference.com/leagues/NBA_2020_standings.html"
-
-html = urlopen(url)
-
-soup = BeautifulSoup(html, features="lxml")
-
-standings = soup.findAll('div',{'class':'standings_confs'})
-
-standings = standings[0]
-
-#print(standings.getText())
-print(type(standings))
-
-all_standings = standings.findAll('div',{'class':'table_wrapper'})
-
-print(len(all_standings))
-east_standing = all_standings[0]
-west_standing = all_standings[1]
-
-east_standing = east_standing.findAll('table')[0].findAll('tbody')[0]
-west_standing = west_standing.findAll('table')[0].findAll('tbody')[0]
-'''
 
 
 def get_table(standing):
@@ -42,29 +19,47 @@ def get_standings(year):
     soup = BeautifulSoup(html, features="lxml")
 
     standings = soup.findAll('div',{'class':'standings_confs'})
-    #print(standings)
+
     standings = standings[0]
 
-    #print(standings.getText())
-    print(type(standings))
 
     all_standings = standings.findAll('div',{'class':'table_wrapper'})
 
-    print(len(all_standings))
     east_standing = all_standings[0]
     west_standing = all_standings[1]
 
     east_standing = east_standing.findAll('table')[0].findAll('tbody')[0]
     west_standing = west_standing.findAll('table')[0].findAll('tbody')[0]
 
-    return get_table(east_standing),get_table(west_standing)
+    east_table,west_table = get_table(east_standing),get_table(west_standing)
 
-es,ws = get_standings('2016')
+    result = []
+    for team,stat in east_table:
+        value = [team]+['E',year]+stat
+        result.append(value)
+    
+    for team,stat in west_table:
+        value = [team]+['W',year]+stat
+        result.append(value)
+    
 
-res = es
-for r in res:
-    print(r)
-print('\n-------------------------------------')
-res = ws
-for r in res:
-    print(r)
+    #res = sorted(res,key=lambda x: x[5])
+    #res.reverse()
+
+    headers = ['Name','Conference','Year','Wins','Losess','W/L%','GB','PS/G','PA/G','SRS']
+
+    for r in result:
+        r[5] = int(r[5][1:])/1000
+        r[5] = "{:.3f}".format(r[5])
+        r[6] = '0.0' if r[6] == '—' else r[6]
+        #print(r)
+
+    stand = pd.DataFrame(result,columns=headers)
+    stand.to_csv(f"standings/standing_{year}.csv",index=False)
+
+
+
+
+for y in range(2016,2022):
+    get_standings(y)
+    print('Done year',y)
