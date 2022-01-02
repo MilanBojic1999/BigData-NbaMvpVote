@@ -35,7 +35,13 @@ def get_header():
 
     header2 = [th.getText() for th in header2[0].find_all('th')]
 
+
     full_header = ['Player']+header+header2[7:]
+    for ind,h in enumerate(full_header):
+        if h=='\xa0':
+            print(ind)
+
+    full_header = [h for h in full_header if h != '\xa0']
     
     return full_header
 
@@ -64,7 +70,9 @@ def get_stats(url,year):
 
     row2 = advanced.find_all('tr',{'id':f'advanced.{year}'},limit=1)[0]
 
-    row2 = [tt.getText() for tt in row2.find_all(['th','td'])]
+    exclue = {19,24}
+
+    row2 = [tt.getText() for ind,tt in enumerate(row2.find_all(['th','td'])) if ind not in exclue]
 
 
 
@@ -75,6 +83,7 @@ def get_stats(url,year):
     return full_row
 
 header = get_header()
+
 rows = []
 with open('player_stats/players_stats.txt','r') as f:
     for line in f:
