@@ -76,10 +76,10 @@ def get_stats(url,year):
 
 header = get_header()
 rows = []
-with open('players_stats.txt','r') as f:
+with open('player_stats/players_stats.txt','r') as f:
     for line in f:
         year,path = line.split(' ')
         rows.append(get_stats('https://www.basketball-reference.com'+path,int(year)))
 
 stand = pd.DataFrame(rows,columns=header)
-stand.to_csv("player_stats.csv",index=False)
+stand.to_csv("player_stats/player_stats.csv",index=False)

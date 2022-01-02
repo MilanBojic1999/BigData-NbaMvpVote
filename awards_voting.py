@@ -104,7 +104,7 @@ for y in range(2016,2022):
     hh.append(get_votings(y))
     print('Done year',y)
 
-with open('players_stats.txt','w') as f:
+with open('player_stats/players_stats.txt','w') as f:
     for tmp in hh:
         for key,values in tmp.items():
             for v in values:
