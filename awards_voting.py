@@ -33,13 +33,6 @@ def get_mvp_voting(year):
         tmp = [name,year]+stats
         result.append(tmp)
 
-    for mini_r in result:
-        for ind in range(10,20):
-            if str(mini_r[ind]).startswith('.'):
-                mini_r[ind] = '0'+mini_r[ind]
-            elif mini_r[ind]=='':
-                mini_r[ind] = '0.0'
-        
     return result,hrefs
 
 def get_dpoy_voting(year):
@@ -69,12 +62,6 @@ def get_dpoy_voting(year):
         tmp = [name,year]+stats
         result.append(tmp)
     
-    for mini_r in result:
-        for ind in range(10,20):
-            if str(mini_r[ind]).startswith('.'):
-                mini_r[ind] = '0'+mini_r[ind]
-            elif mini_r[ind]=='':
-                mini_r[ind] = '0.0'
         
     return result,hrefs
 
@@ -99,6 +86,7 @@ def get_votings(year):
     return {year:set_h}
 
 hh = []
+
 
 for y in range(2016,2022):
     hh.append(get_votings(y))
