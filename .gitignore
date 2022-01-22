@@ -1,10 +1,12 @@
 myenv/
 
 
-standings/
-exp_standings/
+#standings/
+#exp_standings/
 
-dpoy_voting/
-mvp_voting/
+#dpoy_voting/
+#mvp_voting/
 
-player_stats/
+#player_stats/
+
+player_stats/players_stats.txt
