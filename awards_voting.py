@@ -88,7 +88,7 @@ def get_votings(year):
 hh = []
 
 
-for y in range(2016,2022):
+for y in range(2010,2022):
     hh.append(get_votings(y))
     print('Done year',y)
 
