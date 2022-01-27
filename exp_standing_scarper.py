@@ -65,6 +65,6 @@ def get_standings(year):
 
 
 hh = []
-for y in range(2010,2022):
+for y in range(2000,2022):
     hh.append(get_standings(y))
     print('Done year',y)
