@@ -88,13 +88,15 @@ def get_votings(year):
 hh = []
 
 
-for y in range(2000,2022):
-    hh.append(get_votings(y))
-    print('Done year',y)
+def call(star,end):
 
-with open('player_stats/players_stats.txt','w') as f:
-    for tmp in hh:
-        for key,values in tmp.items():
-            for v in values:
-                f.write(str(key)+' '+v)
-                f.write('\n')
+    for y in range(star,end):
+        hh.append(get_votings(y))
+        print('Done year',y)
+
+    with open('player_stats/players_stats.txt','a') as f:
+        for tmp in hh:
+            for key,values in tmp.items():
+                for v in values:
+                    f.write(str(key)+' '+v)
+                    f.write('\n')

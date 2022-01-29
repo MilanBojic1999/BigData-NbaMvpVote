@@ -63,8 +63,8 @@ def get_standings(year):
     stand = pd.DataFrame(result,columns=head)
     stand.to_csv(f"exp_standings/standings_{year}.csv",index=False)
 
-
-hh = []
-for y in range(2000,2022):
-    hh.append(get_standings(y))
-    print('Done year',y)
+def call(start,end):
+    hh = []
+    for y in range(start,end):
+        hh.append(get_standings(y))
+        print('Done year',y)

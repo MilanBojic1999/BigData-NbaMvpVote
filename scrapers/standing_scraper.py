@@ -58,8 +58,8 @@ def get_standings(year):
     stand.to_csv(f"standings/standing_{year}.csv",index=False)
 
 
+def call(start,end):
 
-
-for y in range(2016,2022):
-    get_standings(y)
-    print('Done year',y)
+    for y in range(start,end):
+        get_standings(y)
+        print('Done year',y)
